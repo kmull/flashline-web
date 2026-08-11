@@ -1,0 +1,54 @@
+<div class="login-page">
+  <mat-card class="login-page__card">
+
+    <div class="login-page__header">
+      <mat-icon class="login-page__icon">layers</mat-icon>
+      <p class="login-page__title">Flashline</p>
+    </div>
+    <p class="login-page__subtitle">Zaloguj się do swojego konta</p>
+
+    <form [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="login-page__field"
+                      appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput
+               type="email"
+               formControlName="email"
+               placeholder="ty@example.com" />
+        @if (loginForm.get('email')?.hasError('required')) {
+        <mat-error>Email jest wymagany</mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('email')) {
+        <mat-error>Nieprawidłowy format email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="login-page__field"
+                      appearance="outline">
+        <mat-label>Hasło</mat-label>
+        <input matInput
+               type="password"
+               formControlName="password" />
+        @if (loginForm.get('password')?.hasError('required')) {
+        <mat-error>Hasło jest wymagane</mat-error>
+        }
+      </mat-form-field>
+
+      <button class="login-page__submit"
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid">
+        Zaloguj się
+      </button>
+    </form>
+
+    <p class="login-page__footer">
+      Nie masz konta? <a class="login-page__link"
+         routerLink="/register">Zarejestruj się</a>
+    </p>
+
+  </mat-card>
+</div>

@@ -1,0 +1,55 @@
+<div class="register-page">
+  <mat-card class="register-page__card">
+
+    <div class="register-page__header">
+      <mat-icon class="register-page__icon">layers</mat-icon>
+      <p class="register-page__title">Flashline</p>
+    </div>
+    <p class="register-page__subtitle">Załóż konto i zacznij naukę</p>
+
+    <form [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="register-page__field"
+                      appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput
+               type="email"
+               formControlName="email"
+               placeholder="ty@example.com" />
+        @if (registerForm.get('email')?.hasError('required')) {
+        <mat-error>Email jest wymagany</mat-error>
+        }
+        @if (registerForm.get('email')?.hasError('email')) {
+        <mat-error>Nieprawidłowy format email</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="register-page__field"
+                      appearance="outline">
+        <mat-label>Hasło</mat-label>
+        <input matInput
+               type="password"
+               formControlName="password" />
+        @if (registerForm.get('password')?.hasError('minlength')) {
+        <mat-error>Hasło musi mieć co najmniej 8 znaków</mat-error>
+        }
+      </mat-form-field>
+      <p class="register-page__hint">Co najmniej 8 znaków</p>
+
+      <button class="register-page__submit"
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="registerForm.invalid">
+        Zarejestruj się
+      </button>
+    </form>
+
+    <p class="register-page__footer">
+      Masz już konto? <a class="register-page__link"
+         routerLink="/login">Zaloguj się</a>
+    </p>
+
+  </mat-card>
+</div>
