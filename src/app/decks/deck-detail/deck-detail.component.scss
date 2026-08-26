@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+.deck-detail {
+  max-width: 45rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &__category {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &__empty {
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.9375rem;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__card {
+    padding: 1rem 1.25rem;
+  }
+
+  &__card-question {
+    margin: 0 0 0 0.375rem;
+  }
+
+  &__card-meta {
+    font-size: 0.75rem;
+    color: var(--mat-sys-on-surface-variant);
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  &__card-level {
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    font-weight: 500;
+    font-size: 0.6875rem;
+  }
+
+}

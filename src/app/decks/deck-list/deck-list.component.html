@@ -1,0 +1,31 @@
+<div class="deck-list">
+  <div class="deck-list__header">
+    <h1 deck-list__title>Moje talie</h1>
+    <button mat-flat-button
+            color="primary"
+            routerLink="/decks/new">
+      <mat-icon>add</mat-icon>
+      nowa talia
+    </button>
+  </div>
+
+  @if (loading()) {
+  <p>Wczytywanie talii...</p>
+  } @else if(decks().length === 0) {
+  <p class="deck-list__empty">Nie masz jeszcze żadnej talii - stwórz pierwszą.</p>
+  } @else {
+  <div class="deck-list__grid">
+    @for (deck of decks(); track deck.id) {
+    <mat-card class="deck-list__card"
+              [routerLink]="['/decks', deck.id]">
+      <p class="deck-list__card-name">{{ deck.name }}</p>
+      @if (deck.category) {
+      <p class="deck-list__card-category">{{ deck.category }}</p>
+      }
+    </mat-card>
+    }
+
+  </div>
+  }
+
+</div>

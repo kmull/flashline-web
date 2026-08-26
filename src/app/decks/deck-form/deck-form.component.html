@@ -1,0 +1,31 @@
+<div class="deck-form">
+  <mat-card class="deck-form__card">
+    <p class="deck-form__title">Nowa talia</p>
+
+    <form [formGroup]="deckForm"
+          (ngSubmit)="onSubmit()">
+      <mat-form-field class="deck-form__field"
+                      appearance="outline">
+        <mat-label>Nazwa</mat-label>
+        <input matInput
+               formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field class="deck-form__field"
+                      appearance="outline">
+        <mat-label>Kategoria (opcjonalnie)</mat-label>
+        <input matInput
+               formControlName="category" />
+      </mat-form-field>
+
+      <button mat-flat-button
+              color="primary"
+              class="deck-form__submit"
+              type="submit"
+              [disabled]="deckForm.invalid">
+        Utwórz talię
+      </button>
+
+    </form>
+  </mat-card>
+</div>

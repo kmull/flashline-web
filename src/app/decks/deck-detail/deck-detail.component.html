@@ -1,0 +1,43 @@
+<div class="deck-detail">
+  @if (deck(); as d) {
+  <div class="deck-detail__header">
+    <div>
+      <h1 class="deck-detail__header">{{ d.name }}</h1>
+      @if (d.category) {
+      <p class="deck-detail__category">{{ d.category }}</p>
+      }
+    </div>
+    <button mat-flat-button
+            color="primary"
+            [routerLink]="['/decks', deckId, 'import']">
+      <mat-icon>upload_file</mat-icon>
+      Importuj fiszki
+    </button>
+  </div>
+  }
+
+  @if (loading()) {
+  <p>Wczytywanie karty...</p>
+  } @else if(cards().length === 0) {
+  <p class="deck-detail__empty">Ta talia nie ma jeszcze żadnych kart - zaimportuj pierwsze </p>
+  } @else {
+  <div class="deck-detail__cards">
+    @for (card of cards(); track card.id) {
+    <mat-card class="deck-detail__card">
+      <p class="deck-detail__card-question">{{ card.question }}</p>
+      <div class="deck-detail__card-meta">
+        <span>{{ card.type }}</span>
+        @if (card.category) {
+        <span>{{ card.category }}</span>
+        }
+        @if (card.level) {
+        <span class="deck-detail__card-level">{{ card.level }}</span>
+        }
+      </div>
+    </mat-card>
+    }
+  </div>
+  }
+
+
+</div>

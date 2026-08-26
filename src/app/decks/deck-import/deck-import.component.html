@@ -1,0 +1,99 @@
+<div class="deck-import">
+  <h1 class="deck-import__title">Import fiszek - {{ deckName() }}</h1>
+
+  <mat-tab-group>
+
+    <mat-tab label="1. Generuj intrukcę">
+      <div class="deck-import__tab-content">
+        <p class="deck-import__hint">
+          Skopiuj gotową instrukcję, wklej ją do dowolnego czatu AI (Claude, ChatGPT)
+          razem z materiałem źródłowym — dostaniesz gotowy JSON do wklejenia w drugiej zakładce.
+        </p>
+
+        <div class="deck-import__prompt-cards">
+          <mat-card class="deck-import__prompt-card">
+            <mat-icon class="deck-import__prompt-icon">menu_book</mat-icon>
+            <p class="deck-import__prompt-name">Ze słowniczka</p>
+            <p class="deck-import__prompt-desc">
+              Wklejasz fragment własnego słowniczka pojęć — AI generuje karty RECALL + TRANSLATE.
+            </p>
+            <button mat-flat-button
+                    color="primary"
+                    (click)="copySlowniczekPrompt()">
+              <mat-icon class="mat-18">content_copy</mat-icon>
+              Kopiuj instrukcję
+            </button>
+          </mat-card>
+
+          <mat-card class="deck-import__prompt-card">
+            <mat-icon class="deck-import__prompt-icon">edit_note</mat-icon>
+            <p class="deck-import__prompt-name">Z tekstu / tematu</p>
+            <p class="deck-import__prompt-desc">
+              Podajesz temat — AI pisze tekst źródłowy i generuje fiszki na jego podstawie.
+            </p>
+            <button mat-flat-button
+                    color="primary"
+                    (click)="copyTextPrompt()">
+              <mat-icon>content-copy</mat-icon>
+              Kopiuj instrukcję
+            </button>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="2. Wklej lub wgraj">
+      <div class="deck-import__tab-content">
+
+        <mat-button-toggle-group class="deck-import__mode-toggle"
+                                 [value]="mode()"
+                                 (change)="mode.set($event.value)">
+          <mat-button-toggle value="batch">Same karty</mat-button-toggle>
+          <mat-button-toggle value="withText">Tekst + karty</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <p class="deck-import__hint">
+          @if (mode() === 'batch') {
+          Wklej JSON w kształcie <code>&#123;"cards": [...]&#125;</code> — same fiszki, bez tekstu źródłowego.
+          } @else {
+          Wklej JSON w kształcie <code>ImportSourceTextRequest</code> — tekst źródłowy razem z fiszkami.
+          }
+        </p>
+
+        <textarea class="deck-import__textarea"
+                  rows="12"
+                  placeholder="Wklej tutaj JSON wygenerowany przez AI..."
+                  [value]="jsonText()"
+                  (input)="jsonText.set($any($event.target).value)">
+        </textarea>
+
+        <div class="deck-import__file-row">
+          <input type="file"
+                 accept=".json"
+                 (change)="onFileSelected($event)"
+                 #fileInput
+                 hidden />
+          <button mat-stroked-button
+                  (click)="fileInput.click()">
+            <mat-icon>upload_file</mat-icon>
+            Albo wgraj plik .json
+          </button>
+        </div>
+
+        <button mat-flat-button
+                color="primary"
+                class="deck-import__submit"
+                [disabled]="!jsonText() || submitting()"
+                (click)="submitImport()">
+          @if (submitting()) {
+          importowanie...
+          } @else {
+          importuj
+          }
+        </button>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
